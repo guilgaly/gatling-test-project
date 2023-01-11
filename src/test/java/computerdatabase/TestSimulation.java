@@ -38,7 +38,7 @@ public class TestSimulation extends Simulation {
                 .injectOpen(constantUsersPerSec(nbUsers).during(Duration.ofSeconds(durationSeconds)))
         )
             .assertions(
-                global().responseTime().percentile(99.0).lt(1000),
+                global().responseTime().percentile(99.0).lt(10),
                 global().successfulRequests().percent().gt(95.0)
             )
             .protocols(httpProtocol);
