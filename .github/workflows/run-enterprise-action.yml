@@ -1,0 +1,40 @@
+name: Run Gatling Enterprise Simulation
+
+on:
+  workflow_dispatch:
+#  push:
+#    branches:
+#      - main
+#  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  SIMULATION_ID: 'b75096ea-09e5-4499-b7c9-b798dc16c342'
+  GATLING_ENTERPRISE_API_TOKEN: ${{ secrets.GATLING_ENTERPRISE_API_TOKEN }}
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'maven'
+      - name: Build Gatling simulation
+        run: mvn gatling:enterpriseUpload -Dgatling.enterprise.simulationId=${{ env.SIMULATION_ID }}
+      - name: Gatling Enterprise Action
+        uses: gatling/enterprise-action@v1
+        with:
+          simulation_id: ${{ env.SIMULATION_ID }}
+          extra_system_properties: > 
+            {
+              "users": 2,
+              "duration": 60
+            }
