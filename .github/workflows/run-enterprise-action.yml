@@ -1,0 +1,19 @@
+name: Run Gatling Enterprise Simulation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run on Gatling Enterprise
+        run: ./start_simulation.sh https://cloud.gatling.io ${{ secrets.GATLING_ENTERPRISE_API_TOKEN }} 'b75096ea-09e5-4499-b7c9-b798dc16c342'
