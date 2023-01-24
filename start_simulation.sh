@@ -85,8 +85,11 @@ fi
 #Start simulation
 run=$(execRequest "${gatlingEnterpriseUrl}/api/public/simulations/start?simulation=${simulationId}" "${apiToken}" POST)
 runId=$(echo "${run}" | jq -r '.runId')
-reportsPath=$(echo "${run}" | jq -r '.reportsPath')
+reportsPath=$(echo "${run}" | jq -r '.reportsPath  // empty')
+echo "reportsPath='$reportsPath'"
 reportsUrl=$([ -z "$reportsPath" ] && echo "${gatlingEnterpriseUrl}/#/simulations/reports/${runId}" || echo "${gatlingEnterpriseUrl}${reportsPath}")
+echo "reportsUrl='reportsUrl'"
+
 
 echo "Simulation started with runId ${runId}"
 

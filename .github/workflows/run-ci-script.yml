@@ -14,4 +14,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Run on Gatling Enterprise
-        run: ./start_simulation.sh https://cloud.gatling.io ${{ secrets.GATLING_ENTERPRISE_API_TOKEN }} 'b75096ea-09e5-4499-b7c9-b798dc16c342'
+        run: ./start_simulation.sh http://35.180.132.196 ${{ secrets.SELF_HOSTED_API_TOKEN }} '5b3e6eb5-594e-4335-9f45-8dc7f622d891'
