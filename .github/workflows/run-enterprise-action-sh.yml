@@ -1,0 +1,29 @@
+name: Run Gatling Enterprise Simulation (Self-Hosted)
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gatling Enterprise Action
+        uses: gatling/enterprise-action@v1
+        with:
+          gatling_enterprise_url: ${{ secrets.SELF_HOSTED_K8S_URL }}
+          api_token: ${{ secrets.SELF_HOSTED_K8S_API_TOKEN }}
+          simulation_id: 'a331ce45-a5da-4be3-917e-a14a109344a1'
+          extra_system_properties: > 
+            {
+              "users": 2,
+              "duration": 120
+            }
+#          extra_environment_variables: >
+#            {
+#              "TOTO": "TITI"
+#            }
+#          wait_for_run_end: false
