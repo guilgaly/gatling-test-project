@@ -12,7 +12,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  SIMULATION_ID: 'b75096ea-09e5-4499-b7c9-b798dc16c342'
+  SIMULATION_ID: 'test_duxmix5y5tr1dywo3pkmxan84h'
   GATLING_ENTERPRISE_API_TOKEN: ${{ secrets.GATLING_ENTERPRISE_API_TOKEN }}
 
 jobs:
@@ -25,10 +25,10 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '17'
+          java-version: '25'
           cache: 'maven'
       - name: Build Gatling simulation
-        run: mvn gatling:enterpriseUpload -Dgatling.enterprise.simulationId=${{ env.SIMULATION_ID }}
+        run: mvn --batch-mode gatling:enterpriseDeploy
       - name: Gatling Enterprise Action
         uses: gatling/enterprise-action@v1
         with:
