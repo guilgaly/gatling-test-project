@@ -38,3 +38,4 @@ jobs:
               "users": 1,
               "duration": 200
             }
+          wait_for_run_end: false
